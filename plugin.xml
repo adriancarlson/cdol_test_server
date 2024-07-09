@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://plugin.powerschool.pearson.com"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" description="CDOL custom modification of https://github.com/schaubda/test-server-id" name="CDOL Test Server" version="24.7" xsi:schemaLocation="http://plugin.powerschool.pearson.com plugin.xsd">
+    <publisher name="Adrian Carlson">
+        <contact email="adrian-carlson@cdolinc.net"/>
+    </publisher>
+</plugin>

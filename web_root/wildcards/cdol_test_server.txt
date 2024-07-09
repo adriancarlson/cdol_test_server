@@ -1,0 +1,95 @@
+~[if.is_prod][else]
+<style>
+            ~[if#admin-portal.~[directory]=admin]
+            .pds-app-header-bar
+            {
+                --bg-color1: ~(decode;~[x:systeminfo:machine.name];CDOL-PSTEST1;#F9CE33;CDOL-PSTEST2;#53C0B7);
+                --bg-color2: color-mix(in srgb, ~(decode;~[x:systeminfo:machine.name];CDOL-PSTEST1;#F9CE33;CDOL-PSTEST2;#53C0B7), #000 40%);
+
+                background:  linear-gradient(90deg, var(--bg-color1), var(--bg-color2)) !important;
+            }
+            [/if#admin-portal]
+
+            ~[if#teacher-portal.~[directory]=teachers]
+            .pds-app-header-bar
+            {
+                --bg-color1: ~(decode;~[x:systeminfo:machine.name];CDOL-PSTEST1;#F9CE33;CDOL-PSTEST2;#53C0B7);
+                --bg-color2: color-mix(in srgb, ~(decode;~[x:systeminfo:machine.name];CDOL-PSTEST1;#F9CE33;CDOL-PSTEST2;#53C0B7), #000 40%);
+
+                background:  linear-gradient(90deg, var(--bg-color1), var(--bg-color2)) !important;
+            }
+            [/if#teacher-portal]
+
+
+    ~[if#pubic-portal.~[directory]=guardian]
+                #usercontext-bar
+                {
+                    background: ~(decode;~[x:systeminfo:machine.name];CDOL-PSTEST1;#F9CE33;CDOL-PSTEST2;#53C0B7) !important;
+                }
+
+                #btnContMax
+                {
+                    background: ~(decode;~[x:systeminfo:machine.name];CDOL-PSTEST1;#F9CE33;CDOL-PSTEST2;#53C0B7) !important;
+                }
+
+                #students-list li.selected a, #students-list li:hover a
+                {
+                    background: color-mix(in srgb, #F9CE33, #FFF 30%)  !important;
+                }
+
+            #branding-powerschool
+            {
+                display: inline-block;
+                float: left;
+            }
+
+            #test-server-name
+            {
+                display: inline-block;
+            }
+
+            #test-server-name h1
+            {
+                margin: 15px;
+            }
+    [/if#pubic-portal]
+</style>
+
+~[if#public-portal.~[directory]=guardian]
+    <script type="text/template" id="test-server-name-template">
+        <div id="test-server-name">
+            <h1>~[x:systeminfo:machine.name]</h1>
+        </div>
+    </script>
+[/if#public-portal]
+    <script>
+        $j(function ()
+           {
+                $j('title').prepend('~[x:systeminfo:machine.name]: ');
+
+                ~[if#admin-portal.~[directory]=admin]
+                    ~[if#version.~[version]>=23.5]
+                        $j('.pds-logo-text-primary').text('~[x:systeminfo:machine.name]');
+                    [else#version]
+                           $j('#branding-powerschool')
+                               .html('<img src="/scripts/pds/img/powerschool-white.svg" ' +
+                                     'alt="PowerSchool SIS">~[x:systeminfo:machine.name]');
+                    [/if#version]
+                [/if#admin-portal]
+
+                ~[if#teacher-portal.~[directory]=teachers]
+                    ~[if#version.~[version]>=23.5]
+                        $j('.pds-powerschool-logo div').html('~[x:systeminfo:machine.name]');
+                    [else#version]
+                        $j('#branding-powerschool')
+                           .html('<img src="/scripts/pds/img/powerschool-white.svg" ' +
+                                 'alt="PowerSchool SIS">~[x:systeminfo:machine.name]');
+                    [/if#version]
+                [/if#teacher-portal]
+
+                ~[if#pubic-portal.~[directory]=guardian]
+                    $j('#branding-powerschool').after($j('#test-server-name-template').html());
+                [/if#pubic-portal]
+           });
+    </script>
+[/if]
